@@ -9,11 +9,15 @@ import { HeaderComponent } from './components/core/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { CompaniesComponent } from './containers/companies/companies.component';
+import { CompaniesListComponent } from './components/companies-list/companies-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    CompaniesComponent,
+    CompaniesListComponent
   ],
   imports: [
     BrowserModule,

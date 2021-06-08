@@ -1,1 +1,4 @@
-<app-companies-list></app-companies-list>
+<app-companies-list
+    [dataSource]="dataSource"
+    (filterSearch)="filterSearchEvent($event)">
+</app-companies-list>

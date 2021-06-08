@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { CompaniesListDataSource, CompaniesListItem } from './companies-list-datasource';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
 
 @Component({
   selector: 'app-companies-list',
@@ -10,21 +11,37 @@ import { CompaniesListDataSource, CompaniesListItem } from './companies-list-dat
   styleUrls: ['./companies-list.component.sass']
 })
 export class CompaniesListComponent implements AfterViewInit {
+
+  @Output() filterSearch: EventEmitter<string> = new EventEmitter();
+  displayedColumns = ['name', 'business', 'valuation', 'active', 'action'];
+  form: FormGroup;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<CompaniesListItem>;
-  dataSource: CompaniesListDataSource;
+  @ViewChild(MatTable) table!: MatTable<IBusinessModel>;
+  // dataSource = new MatTableDataSource<IBusinessModel>([]);
+  @Input() dataSource = new MatTableDataSource<IBusinessModel>([]);
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
-
-  constructor() {
-    this.dataSource = new CompaniesListDataSource();
-  }
+  constructor(
+    formBuilder: FormBuilder) {
+      this.form = formBuilder.group({
+        search: ['']
+      });
+    }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+
+  filter(): void {
+    console.log(this.form.controls.search.value);
+    this.filterSearch.emit(this.form.controls.search.value);
+  }
+
+  view(): void {
+
+  }
+
 }

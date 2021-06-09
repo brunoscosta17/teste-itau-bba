@@ -1,0 +1,56 @@
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { cloneDeep } from 'lodash';
+import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
+
+@Component({
+    selector: 'app-company-form',
+    templateUrl: './company-form.component.html',
+    styleUrls: ['./company-form.component.sass']
+})
+export class CompanyFormComponent implements OnChanges, OnInit {
+
+    form: FormGroup;
+
+    cep: string | undefined;
+
+    @Input() company: IBusinessModel | undefined;
+
+    @Output() companyFormSubmit: EventEmitter<any> = new EventEmitter();
+
+    constructor(
+        formBuilder: FormBuilder,
+        private router: Router
+    ) {
+        this.form = formBuilder.group({
+            name: ['', Validators.required],
+            business: ['', Validators.required],
+            valuation: ['', Validators.required],
+            active: ['', Validators.required],
+            cnpj: [null, Validators.required],
+        });
+    }
+
+    ngOnChanges(simpleChanges: SimpleChanges): void {
+        if (simpleChanges) {
+            this.form.patchValue(simpleChanges.company.currentValue);
+        }
+    }
+
+    ngOnInit(): void {
+    }
+
+    handleSubmit(): void {
+        const form = cloneDeep(this.form.value);
+        if (this.form.valid) {
+            this.companyFormSubmit.emit(form);
+        }
+        console.log(form);
+    }
+
+    back(): void {
+        this.router.navigate(['']);
+    }
+
+}

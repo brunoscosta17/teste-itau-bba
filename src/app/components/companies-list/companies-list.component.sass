@@ -1,5 +1,7 @@
+@import 'src/variables.sass'
+  
 .container
-  padding: 6vh 10vh 14vh 14vh
+  padding: 5vh 10vh 14vh 14vh
 
 .head
   display: grid
@@ -8,8 +10,14 @@
   align-items: center
   justify-content: center
 
-.input-search
-  border: none
+form .input-search
+  width: 300px
+  border: solid 1px
+  border-color: $ITAU_BLACK
+  border-radius: 3px
+  padding: 8px
+  &:focus
+    outline-color: $ITAU_BUTTON_ORANGE
 
 .table
     width: 100%
@@ -17,7 +25,7 @@
 .mat-subheading-1
   margin-top: -3vh
 
-.eye-icon
+.eye-icon img
   cursor: pointer
 
 .active

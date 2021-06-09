@@ -12,15 +12,15 @@ import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
 })
 export class CompaniesListComponent implements AfterViewInit {
 
+  @Input() dataSource = new MatTableDataSource<IBusinessModel>([]);
   @Output() filterSearch: EventEmitter<string> = new EventEmitter();
+
   displayedColumns = ['name', 'business', 'valuation', 'active', 'action'];
   form: FormGroup;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<IBusinessModel>;
-  // dataSource = new MatTableDataSource<IBusinessModel>([]);
-  @Input() dataSource = new MatTableDataSource<IBusinessModel>([]);
 
   constructor(
     formBuilder: FormBuilder) {
@@ -36,12 +36,7 @@ export class CompaniesListComponent implements AfterViewInit {
   }
 
   filter(): void {
-    console.log(this.form.controls.search.value);
     this.filterSearch.emit(this.form.controls.search.value);
-  }
-
-  view(): void {
-
   }
 
 }

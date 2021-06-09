@@ -1,8 +1,8 @@
 export class IBusinessModel {
 
     constructor(
-        public id?: number,
-        public name?: string,
+        public id?: number | undefined,
+        public name?: string | undefined,
         public business?: string,
         public valuation?: number,
         public active?: boolean,

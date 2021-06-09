@@ -15,8 +15,8 @@ export class CompaniesListService {
         return this.http.get<IBusinessModel[]>(this.API_URL);
     }
 
-    getById(id: number): Observable<IBusinessModel[]> {
-        return this.http.get<IBusinessModel[]>(this.API_URL + `/${id}`);
+    getById(id: number): Observable<IBusinessModel> {
+        return this.http.get<IBusinessModel>(this.API_URL + `/${id}`);
     }
 
 }

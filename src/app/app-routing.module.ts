@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CompaniesComponent } from './containers/companies/companies.component';
-import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
+import { CompanyDetailComponent } from './containers/company-detail/company-detail.component';
 
 const routes: Routes = [
   {

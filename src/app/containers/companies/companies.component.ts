@@ -13,10 +13,10 @@ export class CompaniesComponent implements OnInit {
 
   dataSource = new MatTableDataSource<IBusinessModel>([]);
 
-  constructor(private service: CompaniesListService) { }
+  constructor(private companiesService: CompaniesListService) { }
 
   ngOnInit(): void {
-    this.service
+    this.companiesService
     .get()
     .subscribe((companies: IBusinessModel[]) => this.dataSource.data = companies);
   }

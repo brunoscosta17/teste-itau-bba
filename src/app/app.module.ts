@@ -3,16 +3,17 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
-import { HeaderComponent } from './shared/components/header/header.component';
+// containers
 import { CompaniesComponent } from './containers/companies/companies.component';
+import { CompanyDetailComponent } from './containers/company-detail/company-detail.component';
+
+// components
 import { CompaniesListComponent } from './components/companies-list/companies-list.component';
-import { CompanyDetailComponent } from './components/company-detail/company-detail.component';
-import { Filter } from 'src/app/shared/pipes/filter.pipe';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
@@ -23,12 +24,23 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
-
+// modules
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
 import localePt from '@angular/common/locales/pt';
-import { registerLocaleData } from '@angular/common';
+import { CurrencyPipe, registerLocaleData } from '@angular/common';
+import { CepComponent } from './shared/components/cep/cep.component';
+
+// directives
+import { CurrencyDirective } from './shared/directives/currency.directive';
 
 registerLocaleData(localePt);
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -36,8 +48,10 @@ registerLocaleData(localePt);
     HeaderComponent,
     CompaniesComponent,
     CompaniesListComponent,
-    Filter,
-    CompanyDetailComponent
+    CompanyFormComponent,
+    CompanyDetailComponent,
+    CepComponent,
+    CurrencyDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +64,7 @@ registerLocaleData(localePt);
       timeOut: 1500,
       progressBar: true
     }),
+    NgxMaskModule.forRoot(maskConfig),
     MatToolbarModule,
     MatDividerModule,
     MatIconModule,
@@ -58,14 +73,17 @@ registerLocaleData(localePt);
     MatSortModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [
+    CurrencyPipe,
     {
       provide: LOCALE_ID,
-      useValue: 'pt-BR'
-    }
+      useValue: 'pt-BR',
+    },
   ],
+  exports: [CurrencyDirective],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

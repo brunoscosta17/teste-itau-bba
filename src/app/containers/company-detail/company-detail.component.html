@@ -1,0 +1,8 @@
+<div class="container" *ngIf="companyName && companyId">
+    <div class="mat-headline">Polo {{companyName}}</div>
+    <div class="mat-subheading-1">exibindo detalhes do polo {{companyName}} #{{companyId}}</div>
+</div>
+<app-company-form *ngIf="company"
+    [company]="company"
+    (companyFormSubmit)="handleSubmit($event)">
+</app-company-form>

@@ -9,7 +9,7 @@ import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
     templateUrl: './company-form.component.html',
     styleUrls: ['./company-form.component.sass']
 })
-export class CompanyFormComponent implements OnChanges, OnInit {
+export class CompanyFormComponent implements OnChanges {
 
     form: FormGroup;
 
@@ -35,10 +35,8 @@ export class CompanyFormComponent implements OnChanges, OnInit {
     ngOnChanges(simpleChanges: SimpleChanges): void {
         if (simpleChanges) {
             this.form.patchValue(simpleChanges.company.currentValue);
+            this.cep = simpleChanges.company.currentValue.cep;
         }
-    }
-
-    ngOnInit(): void {
     }
 
     handleSubmit(): void {
@@ -46,7 +44,6 @@ export class CompanyFormComponent implements OnChanges, OnInit {
         if (this.form.valid) {
             this.companyFormSubmit.emit(form);
         }
-        console.log(form);
     }
 
     back(): void {

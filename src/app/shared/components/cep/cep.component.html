@@ -3,7 +3,7 @@
     <form [formGroup]="form">
         <mat-form-field appearance="outline">
             <mat-label>CEP</mat-label>
-            <input matInput formControlName="cep" name="cep" mask="00.000-000">
+            <input matInput formControlName="cep" name="cep" mask="00-000-000">
             <mat-error *ngIf="form.controls.cep.invalid">O CEP é obrigatório!</mat-error>
         </mat-form-field>
         

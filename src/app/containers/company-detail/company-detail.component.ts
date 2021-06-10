@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
 import { CompaniesListService } from 'src/app/shared/services/companies-list.service';
 
@@ -15,13 +15,14 @@ export class CompanyDetailComponent implements OnInit {
     companyId: number | undefined;
 
     constructor(
-        private route: ActivatedRoute,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private companiesService: CompaniesListService
     ) { }
 
     ngOnInit(): void {
 
-        const companyId = this.route.snapshot.params.id;
+        const companyId = this.activatedRoute.snapshot.params.id;
 
         this.companiesService
             .getById(companyId)
@@ -35,6 +36,7 @@ export class CompanyDetailComponent implements OnInit {
 
     handleSubmit(company: IBusinessModel): void {
         console.log(company);
+        this.router.navigate(['']);
     }
 
 }

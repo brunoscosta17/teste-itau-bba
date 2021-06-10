@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 // import * as cep from 'cep-promise';
 declare let require: any;
@@ -16,11 +18,14 @@ export class CepComponent implements OnInit {
 
     @Input() cep: string | undefined;
 
+    @Output() formCep: EventEmitter<any> = new EventEmitter();
+
     constructor(
-        formBuilder: FormBuilder
+        formBuilder: FormBuilder,
+        private toastr: ToastrService
     ) {
         this.form = formBuilder.group({
-            cep: ['', Validators.required],
+            cep: ['', [Validators.required, Validators.maxLength(8)]],
             street: ['', Validators.required],
             neighborhood: ['', Validators.required],
             state: ['', Validators.required],
@@ -29,11 +34,27 @@ export class CepComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.cep);
-        cep(this.cep)
-            .then((cepResult: any) => {
-                this.form.patchValue(cepResult);
+
+        this.getCep(this.cep);
+
+        this.form.controls.cep.valueChanges
+            .pipe(debounceTime(250), distinctUntilChanged())
+            .subscribe((value: any) => {
+                if (this.form.controls.cep.value.length === 8) {
+                    this.getCep(value);
+                }
             });
+    }
+
+    getCep(cepString: string): void {
+        return cep(cepString, { timeout: 1000, providers: ['brasilapi']})
+        .then((cepResult: any) => {
+            this.form.patchValue(cepResult);
+            this.formCep.emit(cepResult);
+        }).catch((err: any) => {
+            this.toastr.error('CEP não encontrado!');
+            console.log(err);
+        });
     }
 
 }

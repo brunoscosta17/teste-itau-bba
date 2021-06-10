@@ -29,6 +29,11 @@ export class CompanyFormComponent implements OnChanges {
             valuation: ['', Validators.required],
             active: ['', Validators.required],
             cnpj: [null, Validators.required],
+            cep: ['', Validators.required],
+            street: ['', Validators.required],
+            neighborhood: ['', Validators.required],
+            state: ['', Validators.required],
+            city: ['', Validators.required],
         });
     }
 
@@ -48,6 +53,10 @@ export class CompanyFormComponent implements OnChanges {
 
     back(): void {
         this.router.navigate(['']);
+    }
+
+    handleCep(formCep: any): void {
+        this.form.patchValue(formCep);
     }
 
 }

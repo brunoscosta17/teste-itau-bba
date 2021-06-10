@@ -3,7 +3,8 @@
         <div class="row">
             
             <app-cep
-                [cep]="cep">
+                [cep]="cep"
+                (formCep)="handleCep($event)">
             </app-cep>
     
             <mat-card-subtitle style="display: block;">Detalhes da Empresa</mat-card-subtitle>

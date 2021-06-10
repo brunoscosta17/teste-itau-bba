@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { IBusinessModel } from 'src/app/shared/models/ibusiness.model';
 import { CompaniesListService } from 'src/app/shared/services/companies-list.service';
 
@@ -16,8 +17,9 @@ export class CompanyDetailComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private toastr: ToastrService,
         private activatedRoute: ActivatedRoute,
-        private companiesService: CompaniesListService
+        private companiesService: CompaniesListService,
     ) { }
 
     ngOnInit(): void {
@@ -36,6 +38,7 @@ export class CompanyDetailComponent implements OnInit {
 
     handleSubmit(company: IBusinessModel): void {
         console.log(company);
+        this.toastr.success('Dados salvos com sucesso!', 'success');
         this.router.navigate(['']);
     }
 

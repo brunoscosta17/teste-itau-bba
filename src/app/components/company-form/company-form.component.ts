@@ -28,7 +28,7 @@ export class CompanyFormComponent implements OnChanges {
             business: ['', Validators.required],
             valuation: ['', Validators.required],
             active: ['', Validators.required],
-            cnpj: [null, Validators.required],
+            cnpj: ['', Validators.required],
             cep: ['', Validators.required],
             street: ['', Validators.required],
             neighborhood: ['', Validators.required],

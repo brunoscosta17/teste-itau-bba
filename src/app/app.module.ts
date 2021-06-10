@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +35,7 @@ import { CepComponent } from './shared/components/cep/cep.component';
 
 // directives
 import { CurrencyDirective } from './shared/directives/currency.directive';
+import { HttpErrorInterceptorService } from './shared/interceptors/httperror-interceptor.service';
 
 registerLocaleData(localePt);
 
@@ -82,6 +83,11 @@ const maskConfig: Partial<IConfig> = {
       provide: LOCALE_ID,
       useValue: 'pt-BR',
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptorService,
+      multi: true
+    }
   ],
   exports: [CurrencyDirective],
   bootstrap: [AppComponent]

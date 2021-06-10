@@ -7,7 +7,7 @@ Angular CLI: 11.0.5 e Node: 14.15.3
 git clone https://github.com/brunoscosta17/teste-itau-bba
 
 # Acesse o diretório
-cd dir_do_projeto/teste-antlia-itau/talk-more
+cd dir_do_projeto/teste-itau-bba
 
 # Instale as dependencias
 npm install

@@ -29,7 +29,6 @@ export class CompanyDetailComponent implements OnInit {
         this.companiesService
             .getById(companyId)
             .subscribe((company: IBusinessModel) => {
-                console.log(company);
                 this.company = company;
                 this.companyName = company.name;
                 this.companyId = company.id;
